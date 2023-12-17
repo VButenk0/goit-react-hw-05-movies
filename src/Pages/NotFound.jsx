@@ -22,7 +22,7 @@ const Styled404Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  margin-top: 10%;
+  margin-top: 20px;
   h1 {
     font-size: 120px;
   }
