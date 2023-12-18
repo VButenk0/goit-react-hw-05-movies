@@ -9,7 +9,8 @@ const SearchForm = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    searchParams.get('query');
+    const query = searchParams.get('query');
+    setSearch(query ?? '');
   }, [searchParams]);
 
   const handleSubmit = e => {
