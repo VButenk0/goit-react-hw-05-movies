@@ -24,24 +24,20 @@ const Home = () => {
       }
     };
     fetchMovie();
-
-    localStorage.setItem('previousPath', location.pathname);
-  }, [location.pathname]);
+  }, []);
 
   return (
     <>
       {isLoading && <Loader />}
-      {movies && (
+      {movies?.length ? (
         <div>
           <StyledTitle>Trending today</StyledTitle>
           <StyledList>
             {movies.map(movie => (
               <Link
                 key={movie.id}
-                to={{
-                  pathname: `/movies/${movie.id}`,
-                  state: { from: location.pathname },
-                }}
+                state={{ from: location }}
+                to={{ pathname: `/movies/${movie.id}` }}
               >
                 <StyledListItem>
                   <img
@@ -56,7 +52,7 @@ const Home = () => {
             ))}
           </StyledList>
         </div>
-      )}
+      ) : null}
     </>
   );
 };

@@ -28,8 +28,6 @@ const Movies = () => {
   useEffect(() => {
     const query = searchParams.get('query');
     getMovies(query);
-
-    localStorage.setItem('previousPath', location.pathname + `?query=${query}`);
   }, [getMovies, searchParams, location.pathname]);
 
   return (
@@ -37,15 +35,13 @@ const Movies = () => {
       {isLoading && <Loader />}
       <StyledTitle>Search movie</StyledTitle>
       <SearchForm />
-      {movies && (
+      {movies?.length ? (
         <StyledList>
           {movies.map(movie => (
             <Link
               key={movie.id}
-              to={{
-                pathname: `/movies/${movie.id}`,
-                state: { from: location.pathname },
-              }}
+              state={{ from: location }}
+              to={{ pathname: `/movies/${movie.id}` }}
             >
               <StyledListItem>
                 {movie.poster_path ? (
@@ -65,7 +61,7 @@ const Movies = () => {
             </Link>
           ))}
         </StyledList>
-      )}
+      ) : null}
     </>
   );
 };

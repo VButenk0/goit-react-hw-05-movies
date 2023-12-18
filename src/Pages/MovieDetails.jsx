@@ -7,17 +7,27 @@ import {
 } from 'components/MovieDetails/MovieDetails.styled';
 import Loader from 'components/loader/Loader';
 import { Notify } from 'notiflix';
-import React, { useEffect, useState } from 'react';
-import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 
 const MovieDetails = () => {
   const { id } = useParams();
 
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [fromPath, setFromPath] = useState('/');
 
+  const location = useLocation();
+  console.log(location);
   const navigate = useNavigate();
+
+  const fromPath = useRef(location.state?.from || '/');
+  console.log(fromPath.current);
 
   useEffect(() => {
     const fetchMovieById = async () => {
@@ -34,13 +44,8 @@ const MovieDetails = () => {
     fetchMovieById();
   }, [id]);
 
-  useEffect(() => {
-    const previousPath = localStorage.getItem('previousPath') || '/';
-    setFromPath(previousPath);
-  }, []);
-
   const handleCallBack = () => {
-    navigate(fromPath);
+    navigate(fromPath.current);
   };
 
   const genres = () => {
