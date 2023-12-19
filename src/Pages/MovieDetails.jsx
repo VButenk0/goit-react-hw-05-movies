@@ -23,11 +23,9 @@ const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
-  console.log(location);
   const navigate = useNavigate();
 
   const fromPath = useRef(location.state?.from || '/');
-  console.log(fromPath.current);
 
   useEffect(() => {
     const fetchMovieById = async () => {
